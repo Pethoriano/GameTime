@@ -21,18 +21,29 @@ public class GameController {
 
     // Método movido do HomeController para cá
     @GetMapping
-    public ResponseEntity<Page<GamesResponseDTO>> getAll(
-            @PageableDefault(size = 8) Pageable pageable,
-            @RequestParam(required = false) GamesStatus status) {
+public ResponseEntity<Page<GamesResponseDTO>> getAll(
+        @PageableDefault(size = 8) Pageable pageable,
+        @RequestParam(required = false) GamesStatus status,
+        @RequestParam(required = false) String nome) { // 1. Adicionado o parâmetro 'nome'
 
-        Page<GamesResponseDTO> games;
-        if (status != null) {
-            games = repository.findByStatus(status, pageable);
-        } else {
-            games = repository.findAll(pageable).map(GamesResponseDTO::new);
-        }
-        return ResponseEntity.ok(games);
+    Page<Games> gamesPage; // 2. A variável agora é do tipo Page<Games>
+
+    if (nome != null && !nome.isEmpty()) {
+        // Se o parâmetro 'nome' for fornecido, busca por nome
+        gamesPage = repository.findByNomeContainingIgnoreCase(nome, pageable);
+    } else if (status != null) {
+        // Senão, se o status for fornecido, busca por status
+        gamesPage = repository.findByStatus(status, pageable);
+    } else {
+        // Senão, busca todos os jogos
+        gamesPage = repository.findAll(pageable);
     }
+
+    // 3. A conversão para DTO acontece aqui, de forma consistente para todos os casos
+    Page<GamesResponseDTO> gamesDtoPage = gamesPage.map(GamesResponseDTO::new);
+
+    return ResponseEntity.ok(gamesDtoPage);
+}
 
     @GetMapping("/{id}")
     public ResponseEntity<GamesResponseDTO> getById(@PathVariable Long id) {

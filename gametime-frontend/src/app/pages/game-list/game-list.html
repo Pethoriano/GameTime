@@ -4,6 +4,23 @@
     <a routerLink="/cadastrar" class="btn btn-primary">Adicionar Novo Jogo</a>
   </div>
 
+  <div class="row mb-3 align-items-center">
+  <div class="col-md-5">
+      <input type="text" class="form-control" placeholder="Pesquisar por nome..." (input)="onFilterChange($event)">
+  </div>
+  <div class="col-md-4 ms-auto">
+      <div class="input-group">
+          <label class="input-group-text" for="sortSelect">Ordenar por:</label>
+          <select class="form-select" id="sortSelect" (change)="onSortChange($event)">
+              <option value="nome,asc" selected>Nome (A-Z)</option>
+              <option value="nome,desc">Nome (Z-A)</option>
+              <option value="nota,desc">Nota (Maior para Menor)</option>
+              <option value="nota,asc">Nota (Menor para Maior)</option>
+          </select>
+      </div>
+  </div>
+</div>
+
   <div *ngIf="games.length > 0; else noGames">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
       <div class="col" *ngFor="let game of games">
@@ -15,7 +32,7 @@
             <p class="card-text">{{ game.avaliacao }}</p>
           </div>
           <div class="card-footer text-center">
-             <span class="badge bg-secondary">{{ game.status }}</span>
+            <span class="badge bg-secondary">{{ game.status }}</span>
           </div>
           <div class="card-footer d-flex justify-content-around">
             <a [routerLink]="['/editar', game.id]" class="btn btn-secondary btn-sm">Editar</a>
@@ -32,4 +49,17 @@
       <p>Que tal adicionar o primeiro?</p>
     </div>
   </ng-template>
+
+  <footer *ngIf="totalPages > 1" class="d-flex justify-content-center mt-4">
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li class="page-item" [class.disabled]="currentPage === 0">
+          <a class="page-link" href="#" (click)="previousPage(); $event.preventDefault()">Anterior</a>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage >= totalPages - 1">
+          <a class="page-link" href="#" (click)="nextPage(); $event.preventDefault()">Próximo</a>
+        </li>
+      </ul>
+    </nav>
+  </footer>
 </div>

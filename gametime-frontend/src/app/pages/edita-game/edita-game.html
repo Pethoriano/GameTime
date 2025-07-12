@@ -2,7 +2,7 @@
   <div class="col-md-8 col-lg-6">
     <div class="card shadow-sm">
       <div class="card-body">
-        <h2 class="card-title text-center mb-4">Novo Jogo</h2>
+        <h2 class="card-title text-center mb-4">Editar Jogo</h2>
 
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
@@ -44,7 +44,7 @@
 
           <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
             <a routerLink="/" class="btn btn-secondary me-md-2">Cancelar</a>
-            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Salvar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Salvar Alterações</button>
           </div>
 
         </form>

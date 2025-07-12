@@ -1,9 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Game } from '../models/game.model'; // 1. IMPORTE A INTERFACE
+import { Game } from '../models/game.model';
 
-// Interface para a resposta paginada do Spring
 export interface Page<T> {
   content: T[];
   totalElements: number;
@@ -20,16 +19,27 @@ export class GameService {
 
   constructor(private http: HttpClient) { }
 
-  // 2. USE A TIPAGEM NOS MÉTODOS
-  getGames(page: number, size: number): Observable<Page<Game>> {
-    return this.http.get<Page<Game>>(`${this.apiUrl}?page=${page}&size=${size}`);
+  // ADICIONE O PARÂMETRO 'filter'
+  getGames(page: number, size: number, sort?: string, filter?: string): Observable<Page<Game>> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+
+    if (sort) {
+      params = params.set('sort', sort);
+    }
+    // Adiciona o parâmetro de filtro (que o backend espera como 'nome')
+    if (filter) {
+      params = params.set('nome', filter);
+    }
+
+    return this.http.get<Page<Game>>(this.apiUrl, { params });
   }
 
   getGameById(id: number): Observable<Game> {
     return this.http.get<Game>(`${this.apiUrl}/${id}`);
   }
 
-  // O parâmetro 'game' agora pode ser um tipo parcial, pois não inclui o ID
   addGame(game: Partial<Game>): Observable<Game> {
     return this.http.post<Game>(this.apiUrl, game);
   }
@@ -38,7 +48,7 @@ export class GameService {
     return this.http.put<Game>(`${this.apiUrl}/${id}`, game);
   }
 
-  deleteGame(id: number): Observable<any> { // Delete não retorna conteúdo, pode ser any ou {}
+  deleteGame(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }
