@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../services/auth';
+import { AuthService } from '../../services/auth'; // <-- CORRIGIDO AQUI
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  templateUrl: './register.html',
+  styleUrls: ['./register.scss']
 })
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
@@ -33,7 +33,6 @@ export class RegisterComponent implements OnInit {
     if (this.form.valid) {
       this.authService.register(this.form.value).subscribe({
         next: () => {
-          // Redireciona para o login com uma mensagem de sucesso (opcional)
           this.router.navigate(['/login']);
         },
         error: (err) => {

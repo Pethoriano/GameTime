@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../services/auth';
+import { AuthService } from '../../services/auth'; // <-- CORRIGIDO AQUI
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  templateUrl: './login.html',
+  styleUrls: ['./login.scss']
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
@@ -34,11 +34,11 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.form.value).subscribe({
         next: (response) => {
           this.authService.saveToken(response.token);
-          this.router.navigate(['/']); // Redireciona para a home
+          this.router.navigate(['/']);
         },
         error: (err) => {
           console.error('Erro de login', err);
-          this.loginError = true; // Mostra a mensagem de erro
+          this.loginError = true;
         }
       });
     }
