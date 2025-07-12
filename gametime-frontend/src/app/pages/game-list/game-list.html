@@ -6,7 +6,8 @@
 
   <div class="row mb-3 align-items-center">
   <div class="col-md-5">
-    <input type="text" class="form-control" placeholder="Pesquisar por nome..." [formControl]="searchControl">
+    <input type="text" class="form-control" placeholder="Pesquisar por nome..." 
+           [(ngModel)]="currentFilter" (input)="onFilterChange()">
 </div>
   <div class="col-md-4 ms-auto">
       <div class="input-group">
@@ -44,11 +45,17 @@
   </div>
 
   <ng-template #noGames>
-    <div class="text-center p-5 border rounded">
-      <h4>Nenhum jogo cadastrado ainda.</h4>
-      <p>Que tal adicionar o primeiro?</p>
+  <div class="text-center p-5 border rounded">
+    <div *ngIf="currentFilter; else noGamesAtAll">
+        <h4>Nenhum jogo encontrado para "{{ currentFilter }}".</h4>
+        <p>Tente uma busca diferente ou limpe o campo de pesquisa.</p>
     </div>
-  </ng-template>
+    <ng-template #noGamesAtAll>
+        <h4>Nenhum jogo cadastrado ainda.</h4>
+        <p>Que tal adicionar o primeiro?</p>
+    </ng-template>
+  </div>
+</ng-template>
 
   <footer *ngIf="totalPages > 1" class="d-flex justify-content-center mt-4">
     <nav aria-label="Page navigation">
