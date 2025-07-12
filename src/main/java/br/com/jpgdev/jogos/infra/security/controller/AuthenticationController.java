@@ -1,0 +1,36 @@
+package br.com.jpgdev.jogos.infra.security.controller;
+
+import br.com.jpgdev.jogos.infra.security.TokenService;
+import br.com.jpgdev.jogos.infra.security.dto.AuthenticationDTO;
+import br.com.jpgdev.jogos.infra.security.dto.TokenJWTDTO;
+import br.com.jpgdev.jogos.user.User;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/login")
+public class AuthenticationController {
+
+    @Autowired
+    private AuthenticationManager manager;
+
+    @Autowired
+    private TokenService tokenService;
+
+    @PostMapping
+    public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
+        var authenticationToken = new UsernamePasswordAuthenticationToken(data.username(), data.password());
+        var authentication = manager.authenticate(authenticationToken);
+
+        var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal());
+
+        return ResponseEntity.ok(new TokenJWTDTO(tokenJWT));
+    }
+}

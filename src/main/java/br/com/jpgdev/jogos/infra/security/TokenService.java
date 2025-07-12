@@ -1,4 +1,4 @@
-package br.com.jpgdev.jogos.security;
+package br.com.jpgdev.jogos.infra.security;
 
 import br.com.jpgdev.jogos.user.User;
 import com.auth0.jwt.JWT;
@@ -34,4 +34,17 @@ public class TokenService {
         // Token válido por 2 horas
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
+
+    public String getSubject(String tokenJWT) {
+    try {
+        var algorithm = Algorithm.HMAC256(secret);
+        return JWT.require(algorithm)
+                .withIssuer("GameTime API")
+                .build()
+                .verify(tokenJWT)
+                .getSubject();
+    } catch (Exception exception) {
+        throw new RuntimeException("Token JWT inválido ou expirado!");
+    }
+}
 }
