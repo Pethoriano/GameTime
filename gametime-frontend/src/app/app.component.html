@@ -1,0 +1,11 @@
+<h1>Meus Jogos</h1>
+<div *ngIf="games.length > 0; else noGames">
+  <ul>
+    <li *ngFor="let game of games">
+      {{ game.nome }} - Nota: {{ game.nota }}
+    </li>
+  </ul>
+</div>
+<ng-template #noGames>
+  <p>Nenhum jogo cadastrado ainda.</p>
+</ng-template>
