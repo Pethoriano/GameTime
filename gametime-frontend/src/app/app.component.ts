@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from './services/game.service';
+import { CommonModule } from '@angular/common'; // <-- IMPORTE O CommonModule
+import { HttpClientModule } from '@angular/common/http'; // <-- IMPORTE O HttpClientModule
 
 @Component({
   selector: 'app-root',
+  standalone: true, // <-- MARQUE COMO STANDALONE
+  imports: [
+    CommonModule, // <-- ADICIONE O CommonModule AQUI
+    HttpClientModule // <-- ADICIONE O HttpClientModule AQUI
+  ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss'] // <-- CORRIJA PARA .scss
 })
 export class AppComponent implements OnInit {
   title = 'GameTime';
@@ -18,7 +25,7 @@ export class AppComponent implements OnInit {
 
   loadGames(): void {
     this.gameService.getGames(0, 8).subscribe(response => {
-      this.games = response.content; // 'content' é o array de jogos na resposta paginada do Spring
+      this.games = response.content;
     });
   }
 }
