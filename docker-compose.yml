@@ -8,13 +8,13 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: games
-      USUARIO: user
-      SENHA: password
+      # These are for the DB itself, not for the backend
+      # USUARIO: user
+      # SENHA: password
     ports:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
-    # --- Adicionado Healthcheck ---
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       interval: 10s
@@ -25,15 +25,16 @@ services:
     build: .
     container_name: gametime-backend
     restart: unless-stopped
-    # --- Modificado depends_on ---
     depends_on:
       db:
-        condition: service_healthy # Espera o healthcheck do db passar
+        condition: service_healthy
     ports:
-      - "8080:8080"
+      - "8081:8080"
+    # --- CORREÇÃO AQUI ---
     environment:
-      USUARIO: user
-      SENHA: password
+      MYSQL_HOST: db #  <-- Tells Spring to connect to the 'db' service
+      USUARIO: root   #  <-- Use the root user defined in the db service
+      SENHA: root     #  <-- Use the root password defined in the db service
 
 volumes:
   db_data:
