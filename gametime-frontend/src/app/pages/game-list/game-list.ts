@@ -6,9 +6,10 @@ import { CommonModule } from '@angular/common';
   selector: 'app-game-list',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './game-list.html',
-  styleUrls: ['./game-list.scss']
+  templateUrl: './game-list.html', // Usando .html como no seu projeto
+  styleUrls: ['./game-list.scss'] // Usando .scss como no seu projeto
 })
+// O nome da classe deve ser o mesmo que importamos nas rotas
 export class GameListComponent implements OnInit {
   games: any[] = [];
 

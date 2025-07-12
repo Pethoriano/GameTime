@@ -15,5 +15,10 @@ export class GameService {
     return this.http.get(`${this.apiUrl}?page=${page}&size=${size}`);
   }
 
+  // Adicione este método ao seu game.service.ts
+  addGame(game: any): Observable<any> {
+    return this.http.post(this.apiUrl, game);
+  }
+
   // Adicione aqui outros métodos (getById, save, update, delete)
 }

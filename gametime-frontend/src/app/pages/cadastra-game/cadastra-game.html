@@ -1,1 +1,43 @@
-<p>cadastra-game works!</p>
+<div class="form-container">
+  <h2>Cadastrar Novo Jogo</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="form-field">
+      <label for="nome">Nome do Jogo</label>
+      <input id="nome" type="text" formControlName="nome">
+    </div>
+
+    <div class="form-field">
+      <label for="nota">Nota (1 a 10)</label>
+      <input id="nota" type="number" formControlName="nota">
+    </div>
+
+    <div class="form-field">
+      <label for="imagem">URL da Imagem</label>
+      <input id="imagem" type="text" formControlName="imagem">
+    </div>
+
+    <div class="form-field">
+      <label for="avaliacao">Avaliação</label>
+      <textarea id="avaliacao" formControlName="avaliacao"></textarea>
+    </div>
+
+    <div class="form-field">
+      <label>Status</label>
+      <div class="radio-group">
+        <label>
+          <input type="radio" value="JOGADO" formControlName="status"> Jogado
+        </label>
+        <label>
+          <input type="radio" value="JOGANDO" formControlName="status"> Jogando
+        </label>
+        <label>
+          <input type="radio" value="JOGAREI" formControlName="status"> Jogarei
+        </label>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="!form.valid">Cadastrar</button>
+
+  </form>
+</div>

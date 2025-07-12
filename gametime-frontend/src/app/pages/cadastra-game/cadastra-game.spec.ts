@@ -1,23 +1,53 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router'; // <-- Importe o Router
+import { GameService } from '../../services/game.service'; // <-- Importe o GameService
 
-import { CadastraGame } from './cadastra-game';
+@Component({
+  selector: 'app-cadastra-game',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule
+  ],
+  templateUrl: './cadastra-game.html',
+  styleUrls: ['./cadastra-game.scss']
+})
+export class CadastraGameComponent implements OnInit {
+  form!: FormGroup;
 
-describe('CadastraGame', () => {
-  let component: CadastraGame;
-  let fixture: ComponentFixture<CadastraGame>;
+  // Injetamos o GameService e o Router
+  constructor(
+    private formBuilder: FormBuilder,
+    private gameService: GameService,
+    private router: Router
+  ) {}
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [CadastraGame]
-    })
-    .compileComponents();
+  ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      nome: ['', Validators.required],
+      nota: [null, [Validators.min(1), Validators.max(10)]],
+      imagem: ['', Validators.required],
+      avaliacao: [''],
+      status: [null, Validators.required]
+    });
+  }
 
-    fixture = TestBed.createComponent(CadastraGame);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  onSubmit() {
+    if (this.form.valid) {
+      // Chamamos o serviço para salvar o jogo
+      this.gameService.addGame(this.form.value).subscribe({
+        next: (response) => {
+          console.log('Jogo salvo com sucesso!', response);
+          // Em caso de sucesso, navegamos de volta para a home
+          this.router.navigate(['/']);
+        },
+        error: (error) => {
+          console.error('Erro ao salvar o jogo', error);
+          // Aqui você poderia exibir uma mensagem de erro para o usuário
+        }
+      });
+    } else {
+      console.log("Formulário inválido");
+    }
+  }
+}
