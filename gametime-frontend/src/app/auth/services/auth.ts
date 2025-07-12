@@ -1,30 +1,42 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private readonly TOKEN_KEY = 'game-time-token';
+  // URL para o endpoint de login no backend
+  private loginUrl = 'http://localhost:8081/api/login';
 
-  constructor() { }
+  private registerUrl = 'http://localhost:8081/api/login/register';
 
-  // Guarda o token no localStorage do navegador
+  // 1. Injete o HttpClient
+  constructor(private http: HttpClient) { }
+
+  // 2. Adicione o método de login
+  login(credentials: any): Observable<any> {
+    return this.http.post(this.loginUrl, credentials);
+  }
+
+  register(credentials: any): Observable<any> {
+    return this.http.post(this.registerUrl, credentials);
+  }
+
   saveToken(token: string): void {
     localStorage.setItem(this.TOKEN_KEY, token);
   }
 
-  // Recupera o token
   getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
-  // Remove o token (logout)
   removeToken(): void {
     localStorage.removeItem(this.TOKEN_KEY);
   }
 
-  // Verifica se o utilizador está logado
   isLoggedIn(): boolean {
-    return !!this.getToken(); // Retorna true se o token existir
+    return !!this.getToken();
   }
 }

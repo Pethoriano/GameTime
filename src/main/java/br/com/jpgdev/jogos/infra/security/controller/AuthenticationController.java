@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import br.com.jpgdev.jogos.infra.security.dto.RegisterDTO;
+import br.com.jpgdev.jogos.user.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 @RestController
 @RequestMapping("/api/login")
@@ -24,6 +28,12 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @PostMapping
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
         var authenticationToken = new UsernamePasswordAuthenticationToken(data.username(), data.password());
@@ -32,5 +42,19 @@ public class AuthenticationController {
         var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal());
 
         return ResponseEntity.ok(new TokenJWTDTO(tokenJWT));
+    }
+
+    @PostMapping("/register")
+    @Transactional
+    public ResponseEntity register(@RequestBody @Valid RegisterDTO data) {
+        if (this.userRepository.findByUsername(data.username()) != null) {
+            return ResponseEntity.badRequest().body("Utilizador já existente.");
+        }
+
+        var encryptedPassword = passwordEncoder.encode(data.password());
+        var newUser = new User(null, data.username(), encryptedPassword);
+        this.userRepository.save(newUser);
+
+        return ResponseEntity.ok().build();
     }
 }

@@ -27,9 +27,11 @@ public class SecurityConfigurations {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers(HttpMethod.POST, "/api/login").permitAll();
+                    req.requestMatchers(HttpMethod.POST, "/api/login/register").permitAll(); // Adicione esta linha
                     req.anyRequest().authenticated();
                 })
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class) // 2. Adicione o filtro à cadeia
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class) // 2. Adicione o filtro à
+                                                                                             // cadeia
                 .build();
     }
 
