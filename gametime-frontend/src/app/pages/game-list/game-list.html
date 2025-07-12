@@ -6,8 +6,8 @@
 
   <div class="row mb-3 align-items-center">
   <div class="col-md-5">
-      <input type="text" class="form-control" placeholder="Pesquisar por nome..." (input)="onFilterChange($event)">
-  </div>
+    <input type="text" class="form-control" placeholder="Pesquisar por nome..." [formControl]="searchControl">
+</div>
   <div class="col-md-4 ms-auto">
       <div class="input-group">
           <label class="input-group-text" for="sortSelect">Ordenar por:</label>
