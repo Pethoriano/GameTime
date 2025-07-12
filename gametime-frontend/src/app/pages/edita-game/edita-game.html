@@ -1,33 +1,22 @@
 <div class="form-container">
-  <h2>Cadastrar Novo Jogo</h2>
+  <h2>Editar Jogo</h2>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-
     <div class="form-field">
       <label for="nome">Nome do Jogo</label>
       <input id="nome" type="text" formControlName="nome">
-      <div *ngIf="form.get('nome')?.invalid && form.get('nome')?.touched" class="error">
-        Nome é obrigatório.
-      </div>
     </div>
-
     <div class="form-field">
       <label for="nota">Nota (1 a 10)</label>
       <input id="nota" type="number" formControlName="nota">
     </div>
-
     <div class="form-field">
       <label for="imagem">URL da Imagem</label>
       <input id="imagem" type="text" formControlName="imagem">
-      <div *ngIf="form.get('imagem')?.invalid && form.get('imagem')?.touched" class="error">
-        URL da imagem é obrigatória.
-      </div>
     </div>
-
     <div class="form-field">
       <label for="avaliacao">Avaliação</label>
       <textarea id="avaliacao" formControlName="avaliacao"></textarea>
     </div>
-
     <div class="form-field">
       <label>Status</label>
       <div class="radio-group">
@@ -41,16 +30,7 @@
           <input type="radio" value="JOGAREI" formControlName="status"> Jogarei
         </label>
       </div>
-      <div *ngIf="form.get('status')?.invalid && form.get('status')?.touched" class="error">
-        Status é obrigatório.
-      </div>
     </div>
-
-    <button type="submit" [disabled]="!form.valid">Cadastrar</button>
-
+    <button type="submit" [disabled]="!form.valid">Salvar Alterações</button>
   </form>
-
-  <pre>Formulário Válido: {{ form.valid }}</pre>
-  <pre>Valores do Formulário: {{ form.value | json }}</pre>
-
 </div>

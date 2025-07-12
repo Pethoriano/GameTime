@@ -20,5 +20,23 @@ export class GameService {
     return this.http.post(this.apiUrl, game);
   }
 
+  // Adicione este método ao seu game.service.ts
+  deleteGame(id: number): Observable<any> {
+    // Usamos `backticks` para construir a URL com o ID do jogo
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  // Adicione estes dois métodos ao seu game.service.ts
+
+  // Busca um único jogo pelo seu ID
+  getGameById(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
+
+  // Atualiza um jogo existente
+  updateGame(id: number, game: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, game);
+  }
+
   // Adicione aqui outros métodos (getById, save, update, delete)
 }

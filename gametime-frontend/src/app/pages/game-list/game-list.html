@@ -1,17 +1,20 @@
 <div style="padding: 2rem;">
   <h1>GameTime</h1>
-  <hr/>
+  <hr />
 
   <h2>Meus Jogos</h2>
   <div *ngIf="games.length > 0; else noGames">
     <ul>
-      <li *ngFor="let game of games">
-        <p>
-          <strong>{{ game.nome }}</strong> - Nota: {{ game.nota }} (Status: {{game.status}})
-        </p>
-        <p>{{ game.avaliacao }}</p>
-      </li>
-    </ul>
+  <li *ngFor="let game of games">
+    <p>
+      <strong>{{ game.nome }}</strong> - Nota: {{ game.nota }} (Status: {{game.status}})
+    </p>
+    <p>{{ game.avaliacao }}</p>
+    <a [routerLink]="['/editar', game.id]">Editar</a>
+    <button (click)="onDelete(game.id)">Deletar</button>
+    <hr>
+  </li>
+</ul>
   </div>
 
   <ng-template #noGames>
