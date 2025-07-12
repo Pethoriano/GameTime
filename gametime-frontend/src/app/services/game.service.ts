@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class GameService {
-  private apiUrl = 'http://localhost:8080/api/games'; // URL do seu backend
+  private apiUrl = 'http://localhost:8081/api/games'; // URL do seu backend
 
   constructor(private http: HttpClient) { }
 

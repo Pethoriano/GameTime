@@ -1,31 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { GameService } from './services/game.service';
-import { CommonModule } from '@angular/common'; // <-- IMPORTE O CommonModule
-import { HttpClientModule } from '@angular/common/http'; // <-- IMPORTE O HttpClientModule
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  standalone: true, // <-- MARQUE COMO STANDALONE
-  imports: [
-    CommonModule, // <-- ADICIONE O CommonModule AQUI
-    HttpClientModule // <-- ADICIONE O HttpClientModule AQUI
-  ],
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, RouterLink], // Importe RouterOutlet e RouterLink
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'] // <-- CORRIJA PARA .scss
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  title = 'GameTime';
-  games: any[] = [];
-
-  constructor(private gameService: GameService) {}
-
-  ngOnInit(): void {
-    this.loadGames();
-  }
-
-  loadGames(): void {
-    this.gameService.getGames(0, 8).subscribe(response => {
-      this.games = response.content;
-    });
-  }
+export class AppComponent {
+  title = 'gametime-frontend';
 }

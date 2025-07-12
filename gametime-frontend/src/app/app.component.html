@@ -1,20 +1,10 @@
-<div style="padding: 2rem;">
-  <h1>GameTime</h1>
-  <hr/>
+<header>
+  <nav>
+    <a routerLink="/">Home</a>
+    <a routerLink="/cadastrar">Cadastrar Jogo</a>
+  </nav>
+</header>
 
-  <h2>Meus Jogos</h2>
-  <div *ngIf="games.length > 0; else noGames">
-    <ul>
-      <li *ngFor="let game of games">
-        <p>
-          <strong>{{ game.nome }}</strong> - Nota: {{ game.nota }} (Status: {{game.status}})
-        </p>
-        <p>{{ game.avaliacao }}</p>
-      </li>
-    </ul>
-  </div>
-
-  <ng-template #noGames>
-    <p>Nenhum jogo cadastrado. Use uma ferramenta de API para adicionar um jogo e testar!</p>
-  </ng-template>
-</div>
+<main>
+  <router-outlet></router-outlet>
+</main>

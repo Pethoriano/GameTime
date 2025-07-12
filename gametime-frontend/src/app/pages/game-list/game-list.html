@@ -1,0 +1,20 @@
+<div style="padding: 2rem;">
+  <h1>GameTime</h1>
+  <hr/>
+
+  <h2>Meus Jogos</h2>
+  <div *ngIf="games.length > 0; else noGames">
+    <ul>
+      <li *ngFor="let game of games">
+        <p>
+          <strong>{{ game.nome }}</strong> - Nota: {{ game.nota }} (Status: {{game.status}})
+        </p>
+        <p>{{ game.avaliacao }}</p>
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #noGames>
+    <p>Nenhum jogo cadastrado. Use uma ferramenta de API para adicionar um jogo e testar!</p>
+  </ng-template>
+</div>
