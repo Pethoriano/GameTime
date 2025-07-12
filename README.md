@@ -1,41 +1,61 @@
 # 🎮 GameTime
 
-## 📜 Descrição
-GameTime é um projeto 🛠️ que permite aos usuários 🕹️ registrar e gerenciar uma lista de jogos que já jogaram, que desejam jogar ou que estão jogando atualmente. A intenção é manter um registro organizado de suas jornadas de jogo.
+Este aplicativo ajuda-o a manter um registo dos jogos que está a jogar, que já terminou ou que planeia jogar. Simples assim.
 
-## 🌟 Funcionalidades
-- 📝 Registro de jogos completados
-- 📅 Planejamento de jogos futuros
-- 🎮 Acompanhamento de jogos atuais
+## O que pode fazer
 
-## 💻 Tecnologias Utilizadas
-- ☕ Java
-- 🍃 Spring Framework
-- 🎨 Thymeleaf
-- ✔️ Bean Validation
-- ✂️ Lombok
+  * **Login e Registo Seguros**: Crie a sua conta e mantenha a sua lista protegida.
+  * **Gerir a sua Lista**: Adicione, veja, atualize e apague jogos facilmente.
+  * **Encontrar os seus Jogos**: Pesquise por nome ou filtre por status (Jogado, Jogando, Jogarei).
+  * **Ordenar como Quiser**: Organize a sua lista por título ou pela sua nota pessoal.
 
-## 🚀 Executando o aplicativo
-Para executar o aplicativo, siga as etapas abaixo:
+## Tecnologias Utilizadas
 
-1. Crie um banco de dados usando MySql.
-2. Clone este repositório.
-3. Abra o `application.properties` arquivo localizado em src/main/resources.
-4. Modifique as propriedades `spring.datasource.url`, ``spring.datasource.username`` e ``spring.datasource.password`` de acordo com as configurações do seu banco de dados.
-5. Navegue até o diretório raiz do projeto.
-6. Execute o seguinte comando para compilar e executar o aplicativo:
+A aplicação é dividida em duas partes principais:
 
-```
-mvnw spring-boot:run
-```
-7. Entre no seu navegador e o aplicativo estará disponível em http://localhost:8080 .
+  * **Backend**: Java 21, Spring Boot 3, Spring Security com JWT, Spring Data JPA e MySQL.
+  * **Frontend**: Angular 20, TypeScript e Bootstrap.
 
-## 🚀 Implementações Futuras
-No futuro, planejo adicionar as seguintes funcionalidades ao GameTime:
+Para o ambiente de desenvolvimento, utilizei Docker para criar e gerir o contentor do banco de dados e do backend.
 
-- **Integração com API de Imagens**: Implementar uma conexão com uma API externa para automatizar a adição de imagens aos jogos, eliminando a necessidade de os usuários carregarem manualmente as imagens correspondentes aos jogos.
-- **Autenticação**: Verificação segura das credenciais dos usuários, garantindo que apenas usuários autorizados possam acessar suas contas e interagir com o sistema.
-- **Criptografia de Senhas**: Uso de algoritmos de hash modernos para armazenar senhas de forma segura, evitando que sejam comprometidas mesmo no caso de um acesso não autorizado ao banco de dados.
+## Como Executar o Projeto
 
-## 🌱 Origem do Projeto
-A ideia do GameTime surgiu durante um período de transição profissional, com o objetivo de criar um projeto do zero que demonstrasse minhas habilidades em programação. Inspirado pelo aplicativo TVtime, que permite aos usuários acompanhar séries e filmes assistidos, bem como próximos lançamentos, percebi a ausência de uma plataforma semelhante dedicada aos jogos (Até hoje não conheço algo parecido). Diante dessa lacuna, decidi criar o GameTime, um lugar que eu pudesse registrar e gerenciar minhas experiências de jogo. Este projeto é o resultado de uma paixão pessoal por programação, jogos e o desejo de construir algo funcional.
+A forma mais rápida de colocar tudo a funcionar é com o Docker Compose.
+
+**O que precisa:**
+
+  * Docker e Docker Compose instalados.
+
+**Passos:**
+
+1.  **Clone o projeto** para a sua máquina.
+
+    ```bash
+    git clone <URL_DO_SEU_REPOSITORIO>
+    cd <NOME_DO_REPOSITORIO>
+    ```
+
+2.  **Inicie o backend e o banco de dados** com um único comando a partir da raiz do projeto:
+
+    ```bash
+    docker-compose up --build
+    ```
+
+3.  **Inicie o frontend** em outro terminal:
+
+    ```bash
+    cd gametime-frontend
+    npm install
+    ng serve
+    ```
+
+4.  **Pronto.** Agora pode aceder à aplicação:
+
+      * **Frontend**: `http://localhost:4200`
+      * **API do Backend**: `http://localhost:8081`
+
+## Sobre Este Projeto
+
+Eu criei o GameTime para resolver um problema meu. Uso o TVtime para acompanhar filmes e séries e queria algo parecido para os meus jogos. Como não encontrei uma ferramenta simples que me agradasse, decidi construir a minha.
+
+Este projeto também serviu como uma ótima oportunidade para construir uma aplicação full-stack do zero, aplicando na prática os meus conhecimentos em Java e Angular.
