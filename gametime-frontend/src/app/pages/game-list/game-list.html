@@ -1,23 +1,35 @@
-<div style="padding: 2rem;">
-  <h1>GameTime</h1>
-  <hr />
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Meus Jogos</h2>
+    <a routerLink="/cadastrar" class="btn btn-primary">Adicionar Novo Jogo</a>
+  </div>
 
-  <h2>Meus Jogos</h2>
   <div *ngIf="games.length > 0; else noGames">
-    <ul>
-  <li *ngFor="let game of games">
-    <p>
-      <strong>{{ game.nome }}</strong> - Nota: {{ game.nota }} (Status: {{game.status}})
-    </p>
-    <p>{{ game.avaliacao }}</p>
-    <a [routerLink]="['/editar', game.id]">Editar</a>
-    <button (click)="onDelete(game.id)">Deletar</button>
-    <hr>
-  </li>
-</ul>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+      <div class="col" *ngFor="let game of games">
+        <div class="card h-100">
+          <img [src]="game.imagem" class="card-img-top" alt="Imagem do jogo {{game.nome}}">
+          <div class="card-body">
+            <h5 class="card-title">{{ game.nome }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Nota: {{ game.nota }}</h6>
+            <p class="card-text">{{ game.avaliacao }}</p>
+          </div>
+          <div class="card-footer text-center">
+             <span class="badge bg-secondary">{{ game.status }}</span>
+          </div>
+          <div class="card-footer d-flex justify-content-around">
+            <a [routerLink]="['/editar', game.id]" class="btn btn-secondary btn-sm">Editar</a>
+            <button (click)="onDelete(game.id)" class="btn btn-danger btn-sm">Deletar</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <ng-template #noGames>
-    <p>Nenhum jogo cadastrado. Use uma ferramenta de API para adicionar um jogo e testar!</p>
+    <div class="text-center p-5 border rounded">
+      <h4>Nenhum jogo cadastrado ainda.</h4>
+      <p>Que tal adicionar o primeiro?</p>
+    </div>
   </ng-template>
 </div>

@@ -1,42 +1,44 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Game } from '../models/game.model'; // 1. IMPORTE A INTERFACE
+
+// Interface para a resposta paginada do Spring
+export interface Page<T> {
+  content: T[];
+  totalElements: number;
+  totalPages: number;
+  size: number;
+  number: number;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-  private apiUrl = 'http://localhost:8081/api/games'; // URL do seu backend
+  private apiUrl = 'http://localhost:8081/api/games';
 
   constructor(private http: HttpClient) { }
 
-  // Método para buscar todos os jogos (paginado)
-  getGames(page: number, size: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}?page=${page}&size=${size}`);
+  // 2. USE A TIPAGEM NOS MÉTODOS
+  getGames(page: number, size: number): Observable<Page<Game>> {
+    return this.http.get<Page<Game>>(`${this.apiUrl}?page=${page}&size=${size}`);
   }
 
-  // Adicione este método ao seu game.service.ts
-  addGame(game: any): Observable<any> {
-    return this.http.post(this.apiUrl, game);
+  getGameById(id: number): Observable<Game> {
+    return this.http.get<Game>(`${this.apiUrl}/${id}`);
   }
 
-  // Adicione este método ao seu game.service.ts
-  deleteGame(id: number): Observable<any> {
-    // Usamos `backticks` para construir a URL com o ID do jogo
+  // O parâmetro 'game' agora pode ser um tipo parcial, pois não inclui o ID
+  addGame(game: Partial<Game>): Observable<Game> {
+    return this.http.post<Game>(this.apiUrl, game);
+  }
+
+  updateGame(id: number, game: Partial<Game>): Observable<Game> {
+    return this.http.put<Game>(`${this.apiUrl}/${id}`, game);
+  }
+
+  deleteGame(id: number): Observable<any> { // Delete não retorna conteúdo, pode ser any ou {}
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
-
-  // Adicione estes dois métodos ao seu game.service.ts
-
-  // Busca um único jogo pelo seu ID
-  getGameById(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`);
-  }
-
-  // Atualiza um jogo existente
-  updateGame(id: number, game: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, game);
-  }
-
-  // Adicione aqui outros métodos (getById, save, update, delete)
 }

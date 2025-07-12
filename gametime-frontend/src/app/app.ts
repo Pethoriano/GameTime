@@ -1,12 +1,16 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+// Import RouterLink, RouterOutlet, and RouterModule
+import { RouterLink, RouterOutlet, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+  standalone: true,
+  // Add RouterModule to the imports array
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterModule],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
-export class App {
-  protected readonly title = signal('gametime-frontend');
+export class AppComponent {
+  title = 'gametime-frontend';
 }

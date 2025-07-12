@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../../services/game.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router'; // 1. IMPORTE O ROUTERMODULE
+import { RouterModule } from '@angular/router';
+import { Game } from '../../models/game.model'; // <-- IMPORTE AQUI
 
 @Component({
   selector: 'app-game-list',
@@ -14,7 +15,7 @@ import { RouterModule } from '@angular/router'; // 1. IMPORTE O ROUTERMODULE
   styleUrls: ['./game-list.scss']
 })
 export class GameListComponent implements OnInit {
-  games: any[] = [];
+  games: Game[] = []; // <-- USE A TIPAGEM AQUI (em vez de any[])
 
   constructor(private gameService: GameService) { }
 
@@ -29,6 +30,7 @@ export class GameListComponent implements OnInit {
   }
 
   onDelete(id: number): void {
+    // ... (o resto do método continua o mesmo)
     if (confirm('Tem certeza que deseja deletar este jogo?')) {
       this.gameService.deleteGame(id).subscribe({
         next: () => {
