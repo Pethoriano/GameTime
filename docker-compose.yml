@@ -6,25 +6,32 @@ services:
     container_name: gametime-db
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root # Senha do root do MySQL
-      MYSQL_DATABASE: games # Cria o banco 'games'
-      USUARIO: user # Passa a variável de ambiente para o application.properties
-      SENHA: password # Passa a variável de ambiente para o application.properties
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: games
+      USUARIO: user
+      SENHA: password
     ports:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+    # --- Adicionado Healthcheck ---
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   backend:
-    build: . # Constrói a imagem a partir do Dockerfile na raiz
+    build: .
     container_name: gametime-backend
     restart: unless-stopped
+    # --- Modificado depends_on ---
     depends_on:
-      - db
+      db:
+        condition: service_healthy # Espera o healthcheck do db passar
     ports:
       - "8080:8080"
     environment:
-      # Passa as mesmas credenciais para o Spring Boot
       USUARIO: user
       SENHA: password
 
