@@ -1,0 +1,204 @@
+<!-- Page Header -->
+<div class="page-header">
+  <div class="d-flex align-items-center gap-3">
+    <button type="button" class="btn btn-outline-light" (click)="goBack()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="15,18 9,12 15,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Voltar
+    </button>
+    <div>
+      <h1 class="page-title mb-2">{{ isEditMode ? 'Editar Jogo' : 'Adicionar Novo Jogo' }}</h1>
+      <p class="page-subtitle text-muted mb-0">{{ isEditMode ? 'Atualize as informações do seu jogo' : 'Adicione um novo jogo à sua coleção' }}</p>
+    </div>
+  </div>
+</div>
+
+<!-- Form Container -->
+<div class="form-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="game-form">
+    
+    <!-- Basic Information Section -->
+    <div class="form-section">
+      <h3 class="section-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+          <line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" stroke-width="2"/>
+          <line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        Informações Básicas
+      </h3>
+      
+      <div class="row g-4">
+        <div class="col-md-8">
+          <label for="nome" class="form-label required">Nome do Jogo</label>
+          <input 
+            type="text" 
+            id="nome"
+            class="form-control" 
+            formControlName="nome" 
+            placeholder="Ex: The Legend of Zelda: Breath of the Wild"
+            [class.is-invalid]="form.get('nome')?.invalid && form.get('nome')?.touched">
+          <div class="invalid-feedback" *ngIf="form.get('nome')?.invalid && form.get('nome')?.touched">
+            O nome do jogo é obrigatório
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <label for="nota" class="form-label required">Sua Nota</label>
+          <div class="rating-input-wrapper">
+            <input 
+              type="number" 
+              id="nota"
+              class="form-control" 
+              formControlName="nota" 
+              min="0" 
+              max="10" 
+              step="0.1"
+              placeholder="0.0"
+              [class.is-invalid]="form.get('nota')?.invalid && form.get('nota')?.touched">
+            <span class="rating-suffix">/10</span>
+          </div>
+          <div class="invalid-feedback" *ngIf="form.get('nota')?.invalid && form.get('nota')?.touched">
+            A nota deve estar entre 0 e 10
+          </div>
+        </div>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-md-6">
+          <label class="form-label required">Status</label>
+          <div class="status-options">
+            <div class="form-check status-option">
+              <input class="form-check-input" type="radio" id="statusJogado" value="JOGADO" formControlName="status">
+              <label class="form-check-label" for="statusJogado">
+                <span class="status-icon">✅</span>
+                <span class="status-text">
+                  <strong>Jogado</strong>
+                  <small>Finalizado</small>
+                </span>
+              </label>
+            </div>
+            <div class="form-check status-option">
+              <input class="form-check-input" type="radio" id="statusJogando" value="JOGANDO" formControlName="status">
+              <label class="form-check-label" for="statusJogando">
+                <span class="status-icon">🎮</span>
+                <span class="status-text">
+                  <strong>Jogando</strong>
+                  <small>Em progresso</small>
+                </span>
+              </label>
+            </div>
+            <div class="form-check status-option">
+              <input class="form-check-input" type="radio" id="statusJogarei" value="JOGAREI" formControlName="status">
+              <label class="form-check-label" for="statusJogarei">
+                <span class="status-icon">📅</span>
+                <span class="status-text">
+                  <strong>Jogarei</strong>
+                  <small>Planejado</small>
+                </span>
+              </label>
+            </div>
+            <div class="form-check status-option">
+              <input class="form-check-input" type="radio" id="statusBacklog" value="BACKLOG" formControlName="status">
+              <label class="form-check-label" for="statusBacklog">
+                <span class="status-icon">📚</span>
+                <span class="status-text">
+                  <strong>Backlog</strong>
+                  <small>Lista de desejos</small>
+                </span>
+              </label>
+            </div>
+          </div>
+          <div class="invalid-feedback" *ngIf="form.get('status')?.invalid && form.get('status')?.touched">
+            Selecione um status
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <label for="horasJogadas" class="form-label">Horas Jogadas</label>
+          <div class="hours-input-wrapper">
+            <input 
+              type="number" 
+              id="horasJogadas"
+              class="form-control" 
+              formControlName="horasJogadas" 
+              min="0" 
+              step="0.5"
+              placeholder="0">
+            <span class="hours-suffix">horas</span>
+          </div>
+          <small class="form-text text-muted">Deixe em branco se não souber</small>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Review Section -->
+    <div class="form-section">
+      <h3 class="section-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <polyline points="10,9 9,9 8,9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Sua Avaliação
+      </h3>
+      
+      <div class="row">
+        <div class="col-12">
+          <label for="avaliacao" class="form-label">Comentários e Impressões</label>
+          <textarea 
+            id="avaliacao"
+            class="form-control" 
+            formControlName="avaliacao" 
+            rows="4" 
+            placeholder="Compartilhe suas impressões sobre o jogo... O que você achou da história, gameplay, gráficos, trilha sonora, etc."></textarea>
+          <small class="form-text text-muted">
+            <span class="character-count">{{ getCharacterCount() }}</span> caracteres
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <div class="d-flex gap-3 justify-content-end">
+        <button type="button" class="btn btn-outline-secondary" (click)="goBack()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Cancelar
+        </button>
+        
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || isSubmitting">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status"></span>
+          <svg *ngIf="!isSubmitting" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polyline points="20,6 9,17 4,12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          {{ isEditMode ? 'Atualizar Jogo' : 'Salvar Jogo' }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Success/Error Messages -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div class="toast" [class.show]="showSuccessMessage" role="alert">
+    <div class="toast-header bg-success text-white">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="20,6 9,17 4,12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <strong class="me-auto ms-2">Sucesso!</strong>
+    </div>
+    <div class="toast-body">
+      Jogo {{ isEditMode ? 'atualizado' : 'adicionado' }} com sucesso!
+    </div>
+  </div>
+</div>
+

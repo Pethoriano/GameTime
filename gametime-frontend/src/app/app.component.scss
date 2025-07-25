@@ -1,0 +1,170 @@
+/* App Component Styles - Layout Flexível */
+
+/* Container principal com layout flexível */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Conteúdo principal que cresce para ocupar espaço disponível */
+.main-content {
+  flex: 1;
+  padding: var(--spacing-xl) 0;
+  background-color: var(--bg-secondary);
+  min-height: 0; 
+}
+
+/* Footer posicionado na parte inferior sem fixar */
+.footer {
+  background-color: var(--bg-card) !important;
+  border-top: 1px solid var(--gray-200) !important;
+  padding: var(--spacing-lg) 0;
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* Navbar Customizations */
+.navbar {
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  flex-shrink: 0; /* Impede que a navbar encolha */
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.navbar-brand {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--primary-color) !important;
+  transition: transform var(--transition-fast);
+}
+
+.navbar-brand:hover {
+  transform: scale(1.05);
+  color: var(--primary-dark) !important;
+}
+
+.navbar-brand svg {
+  color: var(--primary-color);
+}
+
+/* Navigation Links */
+.nav-link {
+  font-weight: 500;
+  border-radius: var(--border-radius-md);
+  margin: 0 var(--spacing-xs);
+  transition: all var(--transition-fast);
+  position: relative;
+  color: var(--text-secondary) !important;
+}
+
+.nav-link:hover {
+  color: var(--primary-color) !important;
+  background-color: var(--gray-100);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: all var(--transition-fast);
+  transform: translateX(-50%);
+}
+
+.nav-link.active {
+  color: var(--primary-color) !important;
+  background-color: var(--gray-100);
+}
+
+.nav-link.active::after {
+  width: 80%;
+}
+
+.nav-link svg {
+  transition: transform var(--transition-fast);
+}
+
+.nav-link:hover svg {
+  transform: scale(1.1);
+}
+
+/* Mobile Navbar */
+@media (max-width: 991.98px) {
+  .navbar-nav {
+    padding-top: var(--spacing-md);
+  }
+  
+  .nav-link {
+    padding: var(--spacing-md) var(--spacing-lg) !important;
+    margin: var(--spacing-xs) 0;
+    border-radius: var(--border-radius-md);
+  }
+  
+  .nav-link.active {
+    background-color: var(--gray-100);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .main-content {
+    padding: var(--spacing-lg) 0;
+  }
+  
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+  
+  .footer {
+    padding: var(--spacing-md) 0;
+  }
+  
+  .footer .row {
+    text-align: center;
+  }
+  
+  .footer .col-md-6:last-child {
+    margin-top: var(--spacing-sm);
+  }
+}
+
+/* Garantir que o layout funcione em todas as páginas */
+@media (min-height: 600px) {
+  .main-content {
+    min-height: calc(100vh - 140px);
+  }
+}
+
+/* Estados de loading para o conteúdo principal */
+.main-content.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Animação suave para transições de página */
+.main-content {
+  transition: opacity var(--transition-normal);
+}
+
+/* Melhorias para acessibilidade */
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+/* Ajustes para impressão */
+@media print {
+  .navbar,
+  .footer {
+    display: none;
+  }
+  
+  .main-content {
+    padding: 0;
+    background: white;
+  }
+}
+

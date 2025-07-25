@@ -1,0 +1,376 @@
+/* Cadastra Game Component Styles */
+
+/* Page Header */
+.page-header {
+  margin-bottom: var(--spacing-2xl);
+  padding: var(--spacing-xl) 0;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+  border-radius: var(--border-radius-xl);
+  color: var(--text-white);
+  margin: calc(-1 * var(--spacing-xl)) calc(-1 * var(--spacing-xl)) var(--spacing-2xl);
+  padding: var(--spacing-2xl);
+}
+
+.page-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-white);
+}
+
+.page-subtitle {
+  font-size: 1.125rem;
+  opacity: 0.9;
+  color: var(--text-white) !important;
+}
+
+/* Form Container */
+.form-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.game-form {
+  background-color: var(--bg-card);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--gray-200);
+}
+
+/* Form Sections */
+.form-section {
+  margin-bottom: var(--spacing-2xl);
+  padding-bottom: var(--spacing-xl);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.form-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.section-title svg {
+  color: var(--primary-color);
+}
+
+/* Form Labels */
+.form-label {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.form-label.required::after {
+  content: '*';
+  color: var(--danger-color);
+  font-weight: bold;
+}
+
+/* Form Controls */
+.form-control, .form-select {
+  border: 2px solid var(--gray-300);
+  border-radius: var(--border-radius-md);
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  transition: all var(--transition-fast);
+  background-color: var(--bg-primary);
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgb(99 102 241 / 0.1);
+  outline: none;
+}
+
+.form-control.is-invalid, .form-select.is-invalid {
+  border-color: var(--danger-color);
+  box-shadow: 0 0 0 4px rgb(239 68 68 / 0.1);
+}
+
+/* Special Input Wrappers */
+.rating-input-wrapper, .hours-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.rating-suffix, .hours-suffix {
+  position: absolute;
+  right: 1rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  pointer-events: none;
+}
+
+.rating-input-wrapper input, .hours-input-wrapper input {
+  padding-right: 3rem;
+}
+
+/* Status Options */
+.status-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-sm);
+}
+
+.status-option {
+  margin-bottom: 0;
+}
+
+.status-option .form-check-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  border: 2px solid var(--gray-300);
+  border-radius: var(--border-radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background-color: var(--bg-primary);
+  width: 100%;
+}
+
+.status-option .form-check-label:hover {
+  border-color: var(--primary-color);
+  background-color: var(--gray-50);
+}
+
+.status-option .form-check-input:checked + .form-check-label {
+  border-color: var(--primary-color);
+  background-color: var(--primary-color);
+  color: var(--text-white);
+}
+
+.status-option .form-check-input:checked + .form-check-label .status-text small {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.status-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.status-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.status-text strong {
+  font-weight: 600;
+}
+
+.status-text small {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.form-check-input {
+  display: none;
+}
+
+/* Image Preview */
+.image-preview {
+  border: 2px dashed var(--gray-300);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-md);
+  text-align: center;
+  background-color: var(--gray-50);
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: var(--border-radius-md);
+  object-fit: cover;
+}
+
+/* Character Count */
+.character-count {
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+/* Form Actions */
+.form-actions {
+  margin-top: var(--spacing-2xl);
+  padding-top: var(--spacing-xl);
+  border-top: 1px solid var(--gray-200);
+}
+
+.form-actions .btn {
+  padding: 0.875rem 2rem;
+  font-weight: 600;
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-fast);
+}
+
+.form-actions .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Toast Messages */
+.toast-container .toast {
+  border: none;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.toast-header {
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+  border-bottom: none;
+}
+
+.toast-body {
+  padding: var(--spacing-lg);
+  font-weight: 500;
+}
+
+/* Validation Feedback */
+.invalid-feedback {
+  display: block;
+  color: var(--danger-color);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-top: var(--spacing-xs);
+}
+
+.form-text {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-top: var(--spacing-xs);
+}
+
+/* Loading States */
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .page-header {
+    margin: calc(-1 * var(--spacing-lg)) calc(-1 * var(--spacing-lg)) var(--spacing-xl);
+    padding: var(--spacing-xl);
+  }
+  
+  .page-title {
+    font-size: 1.875rem;
+  }
+  
+  .game-form {
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+  }
+  
+  .section-title {
+    font-size: 1.25rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+  
+  .status-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-actions .d-flex {
+    flex-direction: column-reverse;
+    gap: var(--spacing-md) !important;
+  }
+  
+  .form-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .page-header .d-flex {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: var(--spacing-lg);
+  }
+  
+  .rating-input-wrapper, .hours-input-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .rating-suffix, .hours-suffix {
+    position: static;
+    text-align: center;
+    margin-top: var(--spacing-xs);
+    font-size: 0.875rem;
+  }
+  
+  .rating-input-wrapper input, .hours-input-wrapper input {
+    padding-right: 1rem;
+    text-align: center;
+  }
+}
+
+/* Focus Management */
+.form-control:focus,
+.form-select:focus,
+.status-option .form-check-label:focus-within {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Animation for form sections */
+.form-section {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Print styles */
+@media print {
+  .page-header,
+  .form-actions {
+    display: none;
+  }
+  
+  .game-form {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+  
+  .form-section {
+    break-inside: avoid;
+  }
+}
+

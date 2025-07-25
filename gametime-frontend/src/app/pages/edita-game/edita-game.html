@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h2 class="card-title text-center mb-4">Editar Jogo</h2>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+          <div class="mb-3">
+            <label for="nome" class="form-label">Nome do Jogo</label>
+            <input id="nome" type="text" formControlName="nome" class="form-control">
+          </div>
+
+          <div class="mb-3">
+            <label for="nota" class="form-label">Nota (1 a 10)</label>
+            <input id="nota" type="number" formControlName="nota" class="form-control">
+          </div>
+
+          <div class="mb-3">
+            <label for="imagem" class="form-label">URL da Imagem</label>
+            <input id="imagem" type="text" formControlName="imagem" class="form-control">
+          </div>
+
+          <div class="mb-3">
+            <label for="avaliacao" class="form-label">Avaliação</label>
+            <textarea id="avaliacao" formControlName="avaliacao" class="form-control" rows="3"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label d-block">Status</label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="statusJogado" value="JOGADO" formControlName="status">
+              <label class="form-check-label" for="statusJogado">Jogado</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="statusJogando" value="JOGANDO" formControlName="status">
+              <label class="form-check-label" for="statusJogando">Jogando</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="statusJogarei" value="JOGAREI" formControlName="status">
+              <label class="form-check-label" for="statusJogarei">Jogarei</label>
+            </div>
+          </div>
+
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+            <a routerLink="/" class="btn btn-secondary me-md-2">Cancelar</a>
+            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Salvar Alterações</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
